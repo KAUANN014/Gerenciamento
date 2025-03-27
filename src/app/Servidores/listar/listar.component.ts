@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServidorService } from '../../service/servidor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
@@ -12,7 +13,7 @@ export class ListarComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'orgao', 'lotacao', 'acoes'];
   dataSource = new MatTableDataSource<any>();
 
-  constructor(private servidorService: ServidorService) {}
+  constructor(private servidorService: ServidorService, private router: Router) {}
 
   ngOnInit(): void {
     this.listarServidores();
@@ -46,7 +47,7 @@ export class ListarComponent implements OnInit {
   }
 
   criarNovoServidor(): void {
-    // Redirecionar ou abrir modal para criar um novo servidor
+    this.router.navigate(['/cadastrar']);
     console.log('Criar Novo Servidor');
   }
 }

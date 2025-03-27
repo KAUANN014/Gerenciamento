@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="table">
+    <mat-card>
+      <mat-card-title class="titulo">Cadastro de Servidor</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="servidorForm" (ngSubmit)="cadastrarServidor()">
+          <mat-form-field class="full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" required />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" required />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Órgão</mat-label>
+            <mat-select formControlName="orgaoId" (selectionChange)="filtrarLotacoes($event)">
+              <mat-option *ngFor="let orgao of orgaos" [value]="orgao.id">{{ orgao.nome }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Lotação</mat-label>
+            <mat-select formControlName="lotacaoId" [disabled]="!lotacoesFiltradas.length">
+              <mat-option *ngFor="let lotacao of lotacoesFiltradas" [value]="lotacao.id">
+                {{ lotacao.nome }} ({{ lotacao.orgao?.nome }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="servidorForm.invalid">
+              Salvar
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

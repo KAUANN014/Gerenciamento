@@ -24,6 +24,17 @@ export class ServidorService {
   }
 
   criarServidor(servidor: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, servidor);
+    return this.http.post<any>(`${this.apiUrl}servidores`, servidor); // Certifique-se de que o endpoint correto é usado
   }
+  
+
+  listarOrgaos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}orgaos`);
+  }
+
+  listarLotacoesPorOrgao(orgaoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}lotacoes/por-orgao/${orgaoId}`);
+  }
+  
+  
 }
