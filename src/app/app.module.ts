@@ -19,12 +19,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { ExcluirComponent } from './Servidores/excluir/excluir.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditarComponent } from './Servidores/editar/editar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarComponent,
-    CadastrarComponent
+    CadastrarComponent,
+    ExcluirComponent,
+    EditarComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+
     // Angular Material Modules
     MatTableModule,
     MatIconModule,
@@ -43,9 +49,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

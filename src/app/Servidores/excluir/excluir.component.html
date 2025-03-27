@@ -1,0 +1,11 @@
+<h2 mat-dialog-title class="dialog-title">Excluir Servidor</h2>
+<mat-dialog-content class="dialog-content">
+  <p>
+    Tem certeza de que deseja excluir o servidor <strong>{{ data.id }}</strong
+    >?
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-button color="warn" (click)="confirmar()">Sim, excluir</button>
+</mat-dialog-actions>

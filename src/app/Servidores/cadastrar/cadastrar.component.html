@@ -22,21 +22,35 @@
           <mat-form-field class="full-width">
             <mat-label>Órgão</mat-label>
             <mat-select formControlName="orgaoId" (selectionChange)="filtrarLotacoes($event)">
-              <mat-option *ngFor="let orgao of orgaos" [value]="orgao.id">{{ orgao.nome }}</mat-option>
+              <mat-option *ngFor="let orgao of orgaos" [value]="+orgao.id">
+                {{ orgao.nome }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="full-width">
             <mat-label>Lotação</mat-label>
             <mat-select formControlName="lotacaoId" [disabled]="!lotacoesFiltradas.length">
-              <mat-option *ngFor="let lotacao of lotacoesFiltradas" [value]="lotacao.id">
+              <mat-option *ngFor="let lotacao of lotacoesFiltradas" [value]="+lotacao.id">
                 {{ lotacao.nome }} ({{ lotacao.orgao?.nome }})
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Sala</mat-label>
+            <input matInput formControlName="sala" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="Ativo">Ativo</mat-option>
+              <mat-option value="Inativo">Inativo</mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" [disabled]="servidorForm.invalid">
+            <button mat-raised-button color="primary" type="submit" >
               Salvar
             </button>
           </mat-card-actions>

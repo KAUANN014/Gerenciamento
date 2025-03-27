@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServidorService } from '../../service/servidor.service';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { ExcluirComponent } from '../excluir/excluir.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar',
@@ -13,7 +16,13 @@ export class ListarComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'orgao', 'lotacao', 'acoes'];
   dataSource = new MatTableDataSource<any>();
 
-  constructor(private servidorService: ServidorService, private router: Router) {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(
+    private servidorService: ServidorService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.listarServidores();
@@ -41,9 +50,34 @@ export class ListarComponent implements OnInit {
     console.log('Editar Servidor', id);
   }
 
-  confirmarExclusao(id: number): void {
-    // Confirmar exclusão e então fazer a requisição de exclusão
-    console.log('Excluir Servidor', id);
+  editar() {
+    this.router.navigate(['editar']);
+  }
+
+  confirmarExclusao(id: number) {
+    const dialogRef = this.dialog.open(ExcluirComponent, {
+      data: { servidorId: id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(`ID a ser excluído: ${id}`);
+        this.excluirServidor(id);
+      }
+    });
+  }
+
+  excluirServidor(id: number) {
+    this.servidorService.excluirServidor(id).subscribe({
+      next: () => {
+        this.dataSource.data = this.dataSource.data.filter(
+          (servidor) => servidor.id !== id
+        );
+      },
+      error: (err) => {
+        console.error('Erro ao excluir servidor', err);
+      },
+    });
   }
 
   criarNovoServidor(): void {

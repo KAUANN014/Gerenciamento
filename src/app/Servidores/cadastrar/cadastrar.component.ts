@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServidorService } from '../../service/servidor.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastrar',
@@ -16,16 +17,20 @@ export class CadastrarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private servidorService: ServidorService
+    private servidorService: ServidorService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.servidorForm = this.fb.group({
       nome: ['', Validators.required],
       telefone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.email]],
       orgaoId: ['', Validators.required],
-      lotacaoId: ['', Validators.required]
+      lotacaoId: ['', Validators.required],
+      sala: [''],
+      status: ['']
+
     });
 
     this.carregarOrgaos();
@@ -38,8 +43,7 @@ export class CadastrarComponent implements OnInit {
   }
 
   filtrarLotacoes(event: any): void {
-    const orgaoId = event.value; // Pega o id do órgão selecionado
-    
+    const orgaoId = event.value;
     this.servidorService.listarLotacoesPorOrgao(orgaoId).subscribe(lotacoes => {
       this.lotacoesFiltradas = lotacoes;
     });
@@ -51,23 +55,32 @@ export class CadastrarComponent implements OnInit {
         nome: this.servidorForm.value.nome,
         telefone: this.servidorForm.value.telefone,
         email: this.servidorForm.value.email,
-        orgaoId: this.servidorForm.value.orgaoId,  // Envia o ID do órgão
-        lotacaoId: this.servidorForm.value.lotacaoId,  // Envia o ID da lotação
-        sala: this.servidorForm.value.sala,  // Se for obrigatório, deve ser preenchido
-        status: this.servidorForm.value.status  // Se for obrigatório, deve ser preenchido
+        orgaoId: Number(this.servidorForm.value.orgaoId),
+        lotacaoId: Number(this.servidorForm.value.lotacaoId),
+        sala: this.servidorForm.value.sala,
+        status: this.servidorForm.value.status
       };
-  
+
       this.servidorService.criarServidor(servidorData).subscribe({
         next: () => {
-          alert('Servidor cadastrado com sucesso!');
+
           this.servidorForm.reset();
+          this.openSnackBar('Servidor cadastrado com sucesso!', 'Fechar', 'success');
         },
         error: (err) => {
-          alert('Erro ao cadastrar servidor!');
-          console.error('Erro:', err);
+          console.error('Erro ao cadastrar servidor:', err);
+          this.openSnackBar('Erro ao cadastrar servidor', 'Fechar', 'error');
         }
+
       });
     }
   }
-  
+  openSnackBar(message: string, action: string, type: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+      panelClass: type === 'error' ? ['snackbar-error'] : ['snackbar-success'],
+    });
+  }
+
+
 }

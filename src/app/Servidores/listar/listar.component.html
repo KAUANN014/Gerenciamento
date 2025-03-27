@@ -21,7 +21,12 @@
 
       <div class="add-container">
         <!-- Botão de adicionar servidor -->
-        <button mat-raised-button color="primary" (click)="criarNovoServidor()" class="add-user-btn">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="criarNovoServidor()"
+          class="add-user-btn"
+        >
           <mat-icon>add</mat-icon> Adicionar Servidor
         </button>
       </div>
@@ -29,7 +34,12 @@
 
     <!-- Tabela de Servidores -->
     <div class="table-container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+      >
         <!-- Colunas da Tabela -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -55,13 +65,26 @@
           <th mat-header-cell *matHeaderCellDef>Ações</th>
           <td mat-cell *matCellDef="let servidor">
             <div class="acoes-botoes">
-              <button mat-icon-button matTooltip="Editar Servidor" (click)="editarServidor(servidor.id)">
+              <button
+                mat-icon-button
+                matTooltip="Editar Servidor"
+                (click)="editarServidor(servidor.id)"
+                (click)="editar()"
+              >
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Excluir Servidor" (click)="confirmarExclusao(servidor.id)">
+              <button
+                mat-icon-button
+                matTooltip="Excluir Livro"
+                (click)="confirmarExclusao(servidor.id)"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Visualizar Servidor" (click)="visualizar(servidor.id)">
+              <button
+                mat-icon-button
+                matTooltip="Visualizar Servidor"
+                (click)="visualizar(servidor.id)"
+              >
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
@@ -73,8 +96,11 @@
       </table>
 
       <!-- Paginação -->
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" pageSize="10" showFirstLastButtons></mat-paginator>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        pageSize="10"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
-
 </div>

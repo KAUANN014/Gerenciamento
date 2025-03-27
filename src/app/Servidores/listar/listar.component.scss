@@ -91,6 +91,8 @@ margin-top: 100px;
 
 .table-container {
   margin-top: 30px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 mat-paginator {
@@ -148,5 +150,32 @@ mat-header-cell, mat-cell {
 
   table mat-cell, table mat-header-cell {
     padding: 8px;
+  }
+}
+@media (max-width: 768px) {
+  .table-container {
+    max-height: 300px;
+  }
+
+  table mat-header-row {
+    font-size: 0.9rem;
+  }
+
+  table mat-cell {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  mat-paginator {
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+
+  .pesquisa-container {
+    margin-bottom: 10px;
+  }
+
+  .pesquisa {
+    font-size: 0.9rem;
   }
 }
