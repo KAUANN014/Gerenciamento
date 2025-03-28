@@ -1,14 +1,12 @@
 <div class="all-container">
   <div class="container">
-    <!-- Barra de ferramentas com título -->
     <mat-toolbar color="accent" class="toolbar">
       <span class="titulo">Lista de Servidores</span>
     </mat-toolbar>
 
-    <!-- Linha de Botões -->
     <div class="botao-container">
       <div class="pesquisa-container">
-        <!-- Botão de busca com campo de filtro -->
+
         <mat-form-field class="pesquisa">
           <mat-label>Buscar Servidores</mat-label>
           <input
@@ -20,7 +18,7 @@
       </div>
 
       <div class="add-container">
-        <!-- Botão de adicionar servidor -->
+
         <button
           mat-raised-button
           color="primary"
@@ -32,7 +30,7 @@
       </div>
     </div>
 
-    <!-- Tabela de Servidores -->
+
     <div class="table-container">
       <table
         mat-table
@@ -40,7 +38,7 @@
         class="mat-elevation-z8"
         matSort
       >
-        <!-- Colunas da Tabela -->
+
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
           <td mat-cell *matCellDef="let servidor">{{ servidor.id }}</td>
@@ -95,7 +93,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <!-- Paginação -->
       <mat-paginator
         [pageSizeOptions]="[5, 10, 20]"
         pageSize="10"
